@@ -149,7 +149,7 @@ if ! do_thing; then
 fi
 ```
 **Risk**: `set -e` exits silently with no context. Behaviour differs across bash versions.
-**Fix**: Remove `set -e`. Add explicit `if !` or `|| { ... ; exit 1; }` checks on every command that matters.
+**Fix**: Remove `set -e`. Add explicit error checks on every command that matters — either `if ! command; then echo "Error" >&2; exit 1; fi` or `command || { echo "Error" >&2; exit 1; }`.
 
 #### H2 — No Guard Clause on Complex Script
 ```bash
